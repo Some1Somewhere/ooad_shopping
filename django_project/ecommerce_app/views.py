@@ -9,6 +9,14 @@ from . import cart
 
 
 def index(request):
+    if request.method == 'GET':
+        query= request.GET.get('q')
+        if query is not None:
+            lookups= Q(name__icontains=query) | Q(description__icontains=query)
+            results= Product.objects.filter(lookups).distinct()
+            return render(request, "ecommerce_app/index.html", {
+                                    'all_products': results,
+                                    })
     all_products = Product.objects.all().order_by('-clicks')
     return render(request, "ecommerce_app/index.html", {
                                     'all_products': all_products,

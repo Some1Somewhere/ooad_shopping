@@ -8,6 +8,7 @@ class Product(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to='products_images/', blank=True)
     clicks = models.IntegerField(default=0)
+    recommended = models.ForeignKey("Product", on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.name
