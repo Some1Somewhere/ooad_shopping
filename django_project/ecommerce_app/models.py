@@ -48,15 +48,3 @@ class Order(models.Model):
         return sum([ li.cost() for li in self.lineitem_set.all() ] )
 
 
-class LineItem(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    price = models.DecimalField(max_digits=7, decimal_places=2)
-    quantity = models.IntegerField()
-    date_added = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return "{}:{}".format(self.product.name, self.id)
-
-    def cost(self):
-        return self.price * self.quantity

@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect, \
     get_object_or_404, reverse
 from django.contrib import messages
-from .models import Product, Order, LineItem
+from .models import Product, Order
 from .forms import CartForm, CheckoutForm
 from . import cart
 
@@ -73,16 +73,7 @@ def checkout(request):
             o.save()
 
             all_items = cart.get_all_cart_items(request)
-            for cart_item in all_items:
-                li = LineItem(
-                    product_id = cart_item.product_id,
-                    price = cart_item.price,
-                    quantity = cart_item.quantity,
-                    order_id = o.id
-                )
-
-                li.save()
-
+            
             cart.clear(request)
 
             request.session['order_id'] = o.id
