@@ -6,7 +6,6 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=7, decimal_places=2)
     slug = models.SlugField()
     description = models.TextField()
-    image = models.ImageField(upload_to='products_images/', blank=True)
     clicks = models.IntegerField(default=0)
     recommended = models.ForeignKey("Product", on_delete=models.CASCADE, blank=True, null=True)
 
