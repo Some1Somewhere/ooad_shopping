@@ -14,7 +14,7 @@ def index(request):
         query= request.GET.get('q')
         if query is not None:
             lookups= Q(name__icontains=query) | Q(description__icontains=query)
-            results= Product.objects.filter(lookups).distinct()
+            results= Product.objects.filter(lookups).distinct().order_by('-clicks')
             return render(request, "ecommerce_app/index.html", {
                                     'results': results,
                                     })
@@ -43,7 +43,7 @@ def show_product(request, product_id, product_slug):
             cart.add_item_to_cart(request)
             return redirect('show_cart')
     
-    similarProducts = Product.objects.filter(category = product.category)
+    similarProducts = Product.objects.filter(category = product.category).exclude(id=product_id)
     form = CartForm(request, initial={'product_id': product.id})
     return render(request, 'ecommerce_app/product_detail.html', {
                                             'product': product,

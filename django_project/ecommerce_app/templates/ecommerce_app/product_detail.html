@@ -23,20 +23,21 @@
                     <input type="submit" value="Add to cart" class="btn btn-primary" >
                 </form>
 				
-				<!-- <h3> Recommended Products : <a href="{% url 'product_detail' product.recommended.pk product.recommended.slug %}">{{ product.recommended }} </a></h3> -->
-                <h2>OTher Products from the category {{product.category}}</h4>
+				<h2>Other Products from the category {{product.category}}</h4>
 
                 <div class="category-item-container">
-
                     {% for prod in similarProducts %}
-        {% if prod != product %}
+                    {% if prod != null %}
+
                         <div class="index-item-container">
                             <h3><a href="{% url 'product_detail' prod.pk prod.slug %}">{{ prod.name }}</a></h3>
                             <p>Price Rs.{{ prod.price }}</p>
                         </div>
-                        {% endif%}
+
+                        {% endif %}
                         {% endfor %}
                     </div>
+                    
 
                     {% if product.recommended != null %}
 				<h3> Recommended Products : <a href="{% url 'product_detail' product.recommended.pk product.recommended.slug %}">{{ product.recommended }} </a></h3>
