@@ -22,9 +22,9 @@
                     {{ form }}
                     <input type="submit" value="Add to cart" class="btn btn-primary" >
                 </form>
-				
+				{% if product.recommended != null %}
 				<h3> Recommended Products : <a href="{% url 'product_detail' product.recommended.pk product.recommended.slug %}">{{ product.recommended }} </a></h3>
-
+                {% endif %}
 				
 				<h4> Products from the category {{product.category}}</h4>
 				{% for product in similarProducts %}
