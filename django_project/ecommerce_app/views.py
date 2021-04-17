@@ -4,6 +4,7 @@ from django.contrib import messages
 from .models import Product, Order
 from .forms import CartForm, CheckoutForm
 from . import cart
+from django.db.models import Q
 
 # Create your views here.
 
@@ -26,7 +27,6 @@ def index(request):
 def show_product(request, product_id, product_slug):
     product = get_object_or_404(Product, id=product_id)
     product.clicks += 1
-    print("Clicks updated")
     product.save()
 
     if request.method == 'POST':
