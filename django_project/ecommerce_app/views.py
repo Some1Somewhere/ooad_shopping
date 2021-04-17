@@ -16,16 +16,23 @@ def index(request):
             lookups= Q(name__icontains=query) | Q(description__icontains=query)
             results= Product.objects.filter(lookups).distinct()
             return render(request, "ecommerce_app/index.html", {
-                                    'all_products': results,
+                                    'results': results,
                                     })
-    all_products = Product.objects.all().order_by('-clicks')
+    electronics = Product.objects.filter(category='Electronics').order_by('-clicks')
+    stationary = Product.objects.filter(category='Stationary').order_by('-clicks')
+    general = Product.objects.filter(category='General').order_by('-clicks')
+
     return render(request, "ecommerce_app/index.html", {
-                                    'all_products': all_products,
+                                    'electronics': electronics,
+                                    'stationary':stationary,
+                                    'general':general
                                     })
 
 
 def show_product(request, product_id, product_slug):
     product = get_object_or_404(Product, id=product_id)
+    print(product_id)
+    print(product.id)
     product.clicks += 1
     product.save()
 

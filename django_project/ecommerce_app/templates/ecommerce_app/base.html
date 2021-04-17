@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}OOAD Shopping Project </title>
     <style>
+        body{
+            background-color: #eddcd9;
+        }
         table{
             border-collapse: collapse;
             border: none;
@@ -14,14 +17,62 @@
         form{
             margin-bottom: 0;
         }
+        .index-item-container{
+            width: 15%;
+            color: #861f43;
+            color: #213d51;
+            margin: 2.5%;
+            padding: 2.5%;
+            border-radius: 5px;
+            background-color: #eb4058;
+
+        }
+        .search-item-container{
+            width: 50%;
+            color: #861f43;
+            color: #213d51;
+            margin: 2.5%;
+            padding: 0.5% 2.5%;
+            border-radius: 5px;
+            background-color: #eb4058;
+
+        }
+        .index-item-container a,.search-item-container a{
+            color: white;
+            text-decoration: none;
+            
+
+        }
+        .category-item-container{
+            display: flex;
+
+        }
+        .nav{
+            display: flex;
+            justify-content: space-between;
+        }
+        .nav div{
+            width: 20%;
+            text-align: center;
+        }
+        .nav a{
+            color: #213d51;
+            font-size: 2em;
+            font-weight: bold;
+        }
+        h2{
+            color: #547362;
+        }
     </style>
 </head>
 <body>
 
-<p>
-    <a href="{% url 'index' %}">Products</a> |
-    <a href="{% url 'show_cart' %}">Cart: {{ cart_item_count }} item</a>
-</p>
+<div class='nav'>
+    <div>    <a href="{% url 'index' %}">Main Page</a> 
+    </div>
+    <div>    <a href="{% url 'show_cart' %}">Cart: {{ cart_item_count }} item</a>
+    </div>
+</div>
 
 {% block content %}
 

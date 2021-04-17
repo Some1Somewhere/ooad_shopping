@@ -6,18 +6,66 @@
         <div class="row">
 		<br/>
 <form  method="GET" value="{{request.GET.q}}">
-Search <input type="text" name="q" value="{{request.GET.q}}" placeholder="Search Products"/>
+<input type="text" name="q" value="{{request.GET.q}}" placeholder="Search Products"/>
 <input type="submit" name="submit" value="Search"/>
 </form>
+
+{% if results%}
+<h2>Searched Products</h2>
+{% for prod in results %}
+<div class="search-item-container">
+    <h3><a href="{% url 'product_detail' prod.pk prod.slug %}">{{ prod.name }}</a></h3>
+    <p>Price Rs.{{ prod.price }}</p>
+</div>
+{% endfor %}
+{% else %}
+
+{% if electronics or stationary or general %}
             <h2>Available Products</h2>
 
-            {% for product in all_products %}
-                <div class="col-lg-4">
-                    <h3><a href="{% url 'product_detail' product.pk product.slug %}">{{ product.name }}</a></h3>
-                    <p>Price Rs.{{ product.price }}</p>
-                </div>
-            {% endfor %}
 
+            <div>
+                <h2>Electronics</h3>
+                    <div class="category-item-container">
+                    {% for el in electronics %}
+                <div class="index-item-container">
+                    <h3><a href="{% url 'product_detail' el.pk el.slug %}">{{ el.name }}</a></h3>
+                    <p>Price Rs.{{ el.price }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            </div>
+            <div>
+                <h2>Stationary</h3>
+                    <div class="category-item-container">
+
+                    {% for st in stationary %}
+        
+                        <div class="index-item-container">
+                            <h3><a href="{% url 'product_detail' st.pk st.slug %}">{{ st.name }}</a></h3>
+                            <p>Price Rs.{{ st.price }}</p>
+                        </div>
+                        {% endfor %}
+                        </div>
+            </div>
+            <div>
+                <h2>General</h3>
+                    <div class="category-item-container">
+
+                    {% for ge in general %}
+        
+                        <div class="index-item-container">
+                            <h3><a href="{% url 'product_detail' ge.pk ge.slug %}">{{ ge.name }}</a></h3>
+                            <p>Price Rs.{{ ge.price }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+            </div>
+            {% else %}
+            <h2>Can't find any Products</h2>
+
+            {% endif %}
+{% endif %}
         </div>
     </div>
 
