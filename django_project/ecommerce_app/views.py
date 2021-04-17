@@ -35,11 +35,13 @@ def show_product(request, product_id, product_slug):
             request.form_data = form.cleaned_data
             cart.add_item_to_cart(request)
             return redirect('show_cart')
-
+    
+    similarProducts = Product.objects.filter(category = product.category)
     form = CartForm(request, initial={'product_id': product.id})
     return render(request, 'ecommerce_app/product_detail.html', {
                                             'product': product,
                                             'form': form,
+                                            'similarProducts': similarProducts
                                             })
 
 
