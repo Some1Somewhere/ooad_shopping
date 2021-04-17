@@ -7,11 +7,11 @@ def add_products(apps, schema_editor):
     # We can't import the Person model directly as it may be a newer
     # version than this migration expects. We use the historical version.
     Product = apps.get_model("ecommerce_app", "Product")
-    Product.objects.create(id=1, name="TShirt", price=1000, category="clothes", slug="item1", description="Testing",)
-    Product.objects.create(id=2, name="Shorts", price=1500, category= "clothes", slug="item2", description="Testing",recommended= Product.objects.get(name="TShirt"))
-    Product.objects.create(id=3, name="Notebook", price=400,category = "stationary", slug="item3", description="Testing",)
-    Product.objects.create(id=4, name="Pen", price=50, category = "stationary", slug="item4", description="Testing", recommended =  Product.objects.get(name="Notebook"))
-    Product.objects.get(name ="TShirt").recommended = Product.objects.get(name="Shorts")
+    Product.objects.create(id=1, name="TV", price=1000, category="Electronics", slug="item1", description="Testing")
+    Product.objects.create(id=2, name="One Plus 6", price=1500, category= "Electronics", slug="item2", description="Testing",recommended= Product.objects.get(name="TV"))
+    Product.objects.create(id=3, name="Notebook", price=400,category = "Stationary", slug="item3", description="Testing")
+    Product.objects.create(id=4, name="Pen", price=50, category = "Stationary", slug="item4", description="Testing", recommended =  Product.objects.get(name="Notebook"))
+    Product.objects.get(name ="TV").recommended = Product.objects.get(name="One Plus 6")
     Product.objects.get(name ="Notebook").recommended = Product.objects.get(name="Pen")
 
 
