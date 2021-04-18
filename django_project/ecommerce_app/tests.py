@@ -35,8 +35,8 @@ class TestCase1(TestCase):
         self.assertTrue(isinstance(cartItem,CartItem))
         self.assertEqual(cartItem.__str__(), "{}:{}".format(cartItem.product.name, cartItem.id))
         
-    def test_UT06(self):
-        '''UT06 : Testing if the product gets added to cart and the details matches.'''
+    def test_UT09(self):
+        '''UT09 : Testing if the product gets added to cart and the details matches.'''
         c = Client()
         c.post('/product/1/item1/', {'product_id': '1', 'quantity': '1'})
         cartItem = CartItem.objects.first()
@@ -176,6 +176,18 @@ class TestCase3(TestCase):
         result_products = [product.id for product in Product.objects.filter(category = "Electronics")]
         for product in response.context['similarProducts']:
             self.assertFalse(product in result_products)
+            
+    def test_UT308(self):
+        '''UT308: Seller recommendations should be visible if available on product page'''
+        response = Client().get('/product/3/item3/')
+        self.assertEqual(response.context['product'],Product.objects.get(id=3))
+        
+    def test_UT309(self):
+        '''UT309: Product page recommendations also ordered by number of clicks'''
+        response = Client().get('/product/3/item3/')
+        self.assertQuerysetEqual(response.context['similarProducts'],Product.objects.filter(category = "Stationary").exclude(id=3), ordered=False)
+        
+
             
     def test_UT310(self):
         '''UT310: The selected item should not be recommended again on its information page'''
